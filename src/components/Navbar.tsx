@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Menu, X, Mountain } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
+import {useEffect, useState} from "react";
+import {Menu, Mountain, X} from "lucide-react";
+import {Button} from "@/components/ui/button";
+import {usePathname} from "next/navigation";
+import {cn} from "@/lib/utils";
 import Link from "next/link";
 
 export default function Navbar() {
@@ -35,15 +35,15 @@ export default function Navbar() {
     }, [isMobileMenuOpen]);
 
     const navLinks = [
-        { name: "Home", href: "/" },
-        { name: "About", href: "/about" },
-        { name: "Explore", href: "/explore" },
-        { name: "Districts", href: "/explore/districts" },
-        { name: "Rulers", href: "/explore/rulers" },
-        { name: "Recipes", href: "/explore/recipes" },
-        { name: "Temples", href: "/explore/temples" },
-        { name: "Support", href: "/about/support" },
-        { name: "Contribute", href: "/about/contribute" },
+        {name: "Home", href: "/"},
+        {name: "About", href: "/about"},
+        {name: "Explore", href: "/explore"},
+        {name: "Districts", href: "/explore/districts"},
+        {name: "Rulers", href: "/explore/rulers"},
+        {name: "Recipes", href: "/explore/recipes"},
+        {name: "Temples", href: "/explore/temples"},
+        {name: "Support", href: "/about/support"},
+        {name: "Contribute", href: "/about/contribute"},
     ];
 
     return (
@@ -57,9 +57,12 @@ export default function Navbar() {
                 )}
             >
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
-                    <Link href="/" className="flex items-center gap-2 font-serif text-2xl font-bold tracking-tight hover:opacity-90 transition-opacity cursor-pointer z-50 relative">
-                        <Mountain className={cn("h-8 w-8", (isScrolled || !isHome || isMobileMenuOpen) ? "text-secondary" : "text-white")} />
-                        <span>Devbhoomi<span className={cn((isScrolled || !isHome || isMobileMenuOpen) ? "text-secondary" : "text-white")}>Echoes</span></span>
+                    <Link href="/"
+                          className="flex items-center gap-2 font-serif text-2xl font-bold tracking-tight hover:opacity-90 transition-opacity cursor-pointer z-50 relative">
+                        <Mountain
+                            className={cn("h-8 w-8", (isScrolled || !isHome || isMobileMenuOpen) ? "text-secondary" : "text-white")}/>
+                        <span>Devbhoomi<span
+                            className={cn((isScrolled || !isHome || isMobileMenuOpen) ? "text-secondary" : "text-white")}>Echoes</span></span>
                     </Link>
 
                     {/* Desktop Nav */}
@@ -78,7 +81,7 @@ export default function Navbar() {
                                 <span className={cn(
                                     "absolute -bottom-1 left-0 h-0.5 bg-secondary transition-all group-hover:w-full",
                                     pathname === link.href ? "w-full" : "w-0"
-                                )} />
+                                )}/>
                             </Link>
                         ))}
                         <Link href="/contact">
@@ -98,9 +101,10 @@ export default function Navbar() {
                         aria-label="Toggle Menu"
                     >
                         {isMobileMenuOpen ? (
-                            <X className="text-foreground w-6 h-6" />
+                            <X className="text-foreground w-6 h-6"/>
                         ) : (
-                            <Menu className={cn("w-6 h-6", (isScrolled || !isHome) ? "text-foreground" : "text-white")} />
+                            <Menu
+                                className={cn("w-6 h-6", (isScrolled || !isHome) ? "text-foreground" : "text-white")}/>
                         )}
                     </button>
                 </div>
@@ -108,7 +112,8 @@ export default function Navbar() {
 
             {/* Mobile Nav Overlay - Outside nav to fix z-index stacking */}
             {isMobileMenuOpen && (
-                <div className="fixed inset-0 top-[20px] bg-background z-40 flex flex-col justify-start items-center lg:hidden pt-20 overflow-scroll">
+                <div
+                    className="fixed inset-0 top-[20px] bg-background z-40 flex flex-col justify-start items-center lg:hidden pt-20 overflow-scroll">
                     <div className="flex flex-col gap-5 text-center">
                         {navLinks.map((link) => (
                             <Link
@@ -125,7 +130,8 @@ export default function Navbar() {
                         ))}
                         <div className="pt-8">
                             <Link href="/contact">
-                                <Button size="lg" className="rounded-full px-8 text-lg" onClick={() => setIsMobileMenuOpen(false)}>
+                                <Button size="lg" className="rounded-full px-8 text-lg"
+                                        onClick={() => setIsMobileMenuOpen(false)}>
                                     Contact Us
                                 </Button>
                             </Link>

@@ -1,5 +1,5 @@
-import { cn } from "@/lib/utils";
-import { HTMLAttributes } from "react";
+import {cn} from "@/lib/utils";
+import {HTMLAttributes} from "react";
 
 interface SectionProps extends HTMLAttributes<HTMLElement> {
     title?: string;
@@ -29,7 +29,8 @@ export default function Section({
             {...props}
         >
             {pattern && (
-                <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]" />
+                <div
+                    className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"/>
             )}
 
             <div className="max-w-7xl mx-auto relative z-10">
@@ -43,7 +44,7 @@ export default function Section({
                         {title && (
                             <h2 className="text-4xl md:text-5xl font-serif font-bold relative inline-block">
                                 {title}
-                                <span className="block h-1 w-2/3 bg-secondary mt-4 rounded-full opacity-80" />
+                                <span className="block h-1 w-2/3 bg-secondary mt-4 rounded-full opacity-80"/>
                             </h2>
                         )}
                     </div>

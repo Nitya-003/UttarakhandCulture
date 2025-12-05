@@ -2,12 +2,8 @@
 // This interface ensures that every festival object will have two properties:
 // 1. 'name' - a string that stores the name of the festival.
 // 2. 'date' - a string that represents the date of the festival (in DD-MM format).
-import GheeSankranti from "/public/Ghee_Sankranti.jpeg";
-import Ghughutiya from "/public/MakarSankranti.jpg";
 import Run from "/public/fair/RUN.avif"
-import Harela from "/public/festival/harela.jpg"
 import {StaticImageData} from "next/image";
-import MakarSankranti from "/public/MakarSankranti.jpg";
 import UttarayaniMela from "/public/UttarayaniMela.jpg"
 
 
@@ -33,18 +29,18 @@ export const fair: Fair[] = [
         date: "14-01",
         title: "Uttarayani Mela",
         subTitle: {
-            date:`JANUARY ${currentDate.getFullYear()}` ,
-            location:"UTTARAKHAND"
+            date: `JANUARY ${currentDate.getFullYear()}`,
+            location: "UTTARAKHAND"
         },
-        description:"The Uttarayani Fair, celebrated on Makara Sankranti in January, is a vibrant cultural festival in Uttarakhand, with the grandest celebrations in Bageshwar. Held at the confluence of the Sarayu, Gomti, and Sunder Bhagirathi rivers, the fair draws thousands of devotees and tourists. Devotees take a holy dip, seeking blessings for a prosperous year, while the air resonates with folk songs like Jhoras, Chancharis, and Bairas. The mela showcases colorful traditional attire, captivating folk performances, and a culinary paradise of sweet and savory delicacies. Celebrations also thrive in Almora, Nainital, and Haridwar.",
+        description: "The Uttarayani Fair, celebrated on Makara Sankranti in January, is a vibrant cultural festival in Uttarakhand, with the grandest celebrations in Bageshwar. Held at the confluence of the Sarayu, Gomti, and Sunder Bhagirathi rivers, the fair draws thousands of devotees and tourists. Devotees take a holy dip, seeking blessings for a prosperous year, while the air resonates with folk songs like Jhoras, Chancharis, and Bairas. The mela showcases colorful traditional attire, captivating folk performances, and a culinary paradise of sweet and savory delicacies. Celebrations also thrive in Almora, Nainital, and Haridwar.",
         image: UttarayaniMela
     },
     {
         date: "14-09",
         title: "14th Nainital Monsoon Mountain Marathon",
         subTitle: {
-            date:`14 SEPTEMBER ${currentDate.getFullYear()} - 7:00 AM` ,
-            location:"DSA GROUND, NAINITAL, UTTARAKHAND"
+            date: `14 SEPTEMBER ${currentDate.getFullYear()} - 7:00 AM`,
+            location: "DSA GROUND, NAINITAL, UTTARAKHAND"
         },
         description: `Gear up for the 14th Nainital Monsoon Mountain Marathon — “Run for Uttarakhand”, celebrating 25 years of Prosperity, Progress & Pride! Join us on 14th September at 7:00 AM at the DSA Ground, Nainital, and let every step you take echo the spirit of our hills. Don’t miss this chance to be part of a legacy of strength, unity, and determination. The last date to register is 28th August 2025. For more details or to register, scan the QR code, call us at +91 97587 27564, or email us at run2live.in@gmail.com.`,
         image: Run

@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, Calendar, MapPin } from "lucide-react";
-import { cn } from "@/lib/utils";
+import React, {useCallback, useEffect, useState} from "react";
+import {AnimatePresence, motion} from "framer-motion";
+import {Calendar, ChevronLeft, ChevronRight, MapPin} from "lucide-react";
+import {cn} from "@/lib/utils";
 
 interface Event {
     id: number;
@@ -111,11 +111,11 @@ export const ThreeDEventCarousel = ({
         >
             <div
                 className="relative w-full h-[500px] md:h-[450px]"
-                style={{ perspective: "1500px" }}
+                style={{perspective: "1500px"}}
             >
                 <div
                     className="relative w-full h-full flex items-center justify-center"
-                    style={{ transformStyle: "preserve-3d" }}
+                    style={{transformStyle: "preserve-3d"}}
                 >
                     <AnimatePresence initial={false} mode="popLayout">
                         {events.map((event, index) => {
@@ -138,8 +138,8 @@ export const ThreeDEventCarousel = ({
                                         if (position === "next") nextSlide();
                                     }}
                                     drag="x"
-                                    dragConstraints={{ left: 0, right: 0 }}
-                                    onDragEnd={(e, { offset }) => {
+                                    dragConstraints={{left: 0, right: 0}}
+                                    onDragEnd={(e, {offset}) => {
                                         const swipe = offset.x;
                                         if (swipe < -50) {
                                             nextSlide();
@@ -152,7 +152,7 @@ export const ThreeDEventCarousel = ({
                                     <div className="flex flex-col md:flex-row h-full">
                                         {/* Image Side */}
                                         <div className="md:w-1/2 relative h-64 md:h-full overflow-hidden">
-                                            <div className="absolute inset-0 bg-black/10 z-10" />
+                                            <div className="absolute inset-0 bg-black/10 z-10"/>
                                             <img
                                                 src={event.image}
                                                 alt={event.title}
@@ -168,13 +168,14 @@ export const ThreeDEventCarousel = ({
 
                                         {/* Content Side */}
                                         <div className="md:w-1/2 p-4 sm:p6 md:p-10 flex flex-col justify-center">
-                                            <div className="flex items-center gap-4 mb-4 text-sm font-medium text-muted-foreground flex-wrap">
+                                            <div
+                                                className="flex items-center gap-4 mb-4 text-sm font-medium text-muted-foreground flex-wrap">
                                                 <div className="flex items-center gap-1.5">
-                                                    <Calendar className="w-4 h-4" />
+                                                    <Calendar className="w-4 h-4"/>
                                                     <span>{event.date}</span>
                                                 </div>
                                                 <div className="flex items-center gap-1.5">
-                                                    <MapPin className="w-4 h-4" />
+                                                    <MapPin className="w-4 h-4"/>
                                                     <span>{event.location}</span>
                                                 </div>
                                             </div>
@@ -200,14 +201,14 @@ export const ThreeDEventCarousel = ({
                     className="absolute left-1 top-1/2 -translate-y-1/2 z-30 p-3 rounded-full bg-white/90 hover:bg-white text-neutral-900 transition-all backdrop-blur-sm shadow-lg hover:scale-110 opacity-60 sm:opacity-100"
                     aria-label="Previous slide"
                 >
-                    <ChevronLeft className="w-6 h-6" />
+                    <ChevronLeft className="w-6 h-6"/>
                 </button>
                 <button
                     onClick={nextSlide}
                     className="absolute right-1 top-1/2 -translate-y-1/2 z-30 p-3 rounded-full bg-white/90 hover:bg-white text-neutral-900 transition-all backdrop-blur-sm shadow-lg hover:scale-110 opacity-60 sm:opacity-100"
                     aria-label="Next slide"
                 >
-                    <ChevronRight className="w-6 h-6" />
+                    <ChevronRight className="w-6 h-6"/>
                 </button>
 
                 {/* Dots Navigation */}

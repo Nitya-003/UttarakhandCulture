@@ -1,10 +1,5 @@
-import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger,
-} from "@/components/ui/accordion";
-import { motion } from "framer-motion";
+import {Accordion, AccordionContent, AccordionItem, AccordionTrigger,} from "@/components/ui/accordion";
+import {motion} from "framer-motion";
 
 export default function FAQ() {
     const faqs = [
@@ -36,12 +31,13 @@ export default function FAQ() {
                 {faqs.map((faq, index) => (
                     <motion.div
                         key={index}
-                        initial={{ opacity: 0, y: 10 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ delay: index * 0.1 }}
-                        viewport={{ once: true }}
+                        initial={{opacity: 0, y: 10}}
+                        whileInView={{opacity: 1, y: 0}}
+                        transition={{delay: index * 0.1}}
+                        viewport={{once: true}}
                     >
-                        <AccordionItem value={`item-${index}`} className="border border-border/50 rounded-lg bg-white/50 backdrop-blur-sm px-4 shadow-sm hover:shadow-md transition-all duration-300">
+                        <AccordionItem value={`item-${index}`}
+                                       className="border border-border/50 rounded-lg bg-white/50 backdrop-blur-sm px-4 shadow-sm hover:shadow-md transition-all duration-300">
                             <AccordionTrigger className="text-lg font-serif font-medium hover:text-secondary text-left">
                                 {faq.question}
                             </AccordionTrigger>
