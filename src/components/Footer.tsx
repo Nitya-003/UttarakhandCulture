@@ -4,7 +4,8 @@ export default function Footer() {
     const currentYear = new Date().getFullYear();
 
     return (
-        <footer className="bg-primary text-white pt-20 pb-10 px-6 relative overflow-hidden">
+        <footer
+            className="bg-primary text-white pt-20 pb-10 px-6 relative overflow-hidden rounded-t-3xl border-t md:rounded-t-[4rem]">
             {/* Abstract decorative circle */}
             <div
                 className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/3 blur-3xl"/>
@@ -63,6 +64,14 @@ export default function Footer() {
                     <span>in the mountains</span>
                 </div>
             </div>
+
+
+            <section
+                className="relative px-4 max-w-[1080px] text-center text-gray-100 flex items-center justify-center gap-2 mx-auto pb-2 text-[9rem] sm:text-[14rem] md:text-[19rem] lg:text-[20rem] leading-[1] pointer-events-none font-bold -mb-[11%] sm:-mb-[7%] duration-200 ease-in-out">
+                <div className="text-white animate-[pulse_4s_infinite] drop-shadow-xl">Orshot</div>
+                <div
+                    className="bg-gradient-to-b from-transparent via-white to-white h-[20%] w-full absolute bottom-0 left-0 z-20"></div>
+            </section>
         </footer>
     );
 }

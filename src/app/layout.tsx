@@ -39,7 +39,7 @@ export default function RootLayout({
             <link rel="icon" href="./Mountain.svg"/>
         </head>
         <body
-            className={`${dmSans.variable} ${playfair.variable} ${caveat.variable} antialiased`}
+            className={`${dmSans.variable} ${playfair.variable} ${caveat.variable} antialiased paper-bg`}
         >
         <Navbar/>
         {children}

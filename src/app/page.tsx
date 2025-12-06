@@ -1,28 +1,27 @@
 "use client";
 
-import {motion} from "framer-motion";
-import {Button} from "@/components/ui/button";
-import {ArrowDown, ArrowRight, Music, Sparkles} from "lucide-react";
-import Section from "@/components/Section";
-import Image from 'next/image';
-import Link from "next/link";
-import {useRouter} from "next/navigation";
-
-
+import gauchar from "@/assets/gauchar_mela_fair.png";
+import danceImg from "@/assets/choliya_folk_dancers.png";
+import kumbhMela from "@/assets/kumbh_mela_haridwar.png";
+import harela from "@/assets/harela_festival_celebration.png";
+import nandaImg from "@/assets/nanda_devi_peak_majestic_view.png";
+import foodImg from "@/assets/traditional_pahadi_cuisine_thali.png";
 import aipanTexture from "@/assets/traditional_aipan_art_texture.png";
 import templeImg from "@/assets/kedarnath_temple_spiritual_scene.png";
-import foodImg from "@/assets/traditional_pahadi_cuisine_thali.png";
-import danceImg from "@/assets/choliya_folk_dancers.png";
-import nandaImg from "@/assets/nanda_devi_peak_majestic_view.png";
 import backgroundImg from "@/assets/majestic_himalayan_sunrise_hero_background.png";
-import harela from "@/assets/harela_festival_celebration.png";
 
-import gauchar from "@/assets/gauchar_mela_fair.png";
-import kumbhMela from "@/assets/kumbh_mela_haridwar.png";
-
+import Section from "@/components/Section";
+import {Button} from "@/components/ui/button";
+import {Card, CardContent} from "@/components/ui/card";
 import {ThreeDEventCarousel} from "@/components/ThreeDEventCarouselProps";
 
-import {Card, CardContent} from "@/components/ui/card";
+import Link from "next/link";
+import Image from 'next/image';
+import {useRouter} from "next/navigation";
+
+import {motion} from "framer-motion";
+import {ArrowDown, ArrowRight, Music, Sparkles} from "lucide-react";
+
 
 export default function Home() {
 
@@ -112,10 +111,10 @@ export default function Home() {
                                 Start the Journey
                             </Button>
 
-                            <Button onClick={() => router.push("/support")} size="lg" variant="outline"
-                                    className="cursor-pointer rounded-full text-lg px-8 py-6 bg-white/10 hover:bg-white/20 text-white border-white/30 backdrop-blur-sm">
-                                Support us
-                            </Button>
+                            {/*<Button onClick={() => router.push("/support")} size="lg" variant="outline"*/}
+                            {/*        className="cursor-pointer rounded-full text-lg px-8 py-6 bg-white/10 hover:bg-white/20 text-white border-white/30 backdrop-blur-sm">*/}
+                            {/*    Support us*/}
+                            {/*</Button>*/}
                         </div>
                     </motion.div>
                 </div>

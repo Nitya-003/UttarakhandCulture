@@ -211,3 +211,20 @@
             transparent 20px
     );
 }
+
+
+
+/*.paper-bg {*/
+/*    position: absolute;*/
+/*    border-radius: inherit;*/
+/*    corner-shape: inherit;*/
+/*    inset: 0;*/
+/*    background-image: url('/backgroundImage.avif');*/
+/*    background-repeat: repeat;*/
+/*    background-position: left top;*/
+/*    border: 0;*/
+/*    background-size: 128px;*/
+/*    z-index: 100;*/
+/*    image-rendering: crisp-edges; !* keeps small textures sharp *!*/
+/*}*/
+

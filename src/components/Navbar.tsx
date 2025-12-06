@@ -52,8 +52,8 @@ export default function Navbar() {
                 className={cn(
                     "fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-6 py-4",
                     isScrolled || !isHome || isMobileMenuOpen
-                        ? "bg-background/95 backdrop-blur-md shadow-sm border-b border-border/50 py-3 text-foreground"
-                        : "bg-transparent text-white"
+                        ? "bg-white/10 backdrop-blur-md border-b border-white/20 shadow-lg py-3 text-foreground"
+                            : "bg-transparent text-white"
                 )}
             >
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
@@ -61,8 +61,8 @@ export default function Navbar() {
                           className="flex items-center gap-2 font-serif text-2xl font-bold tracking-tight hover:opacity-90 transition-opacity cursor-pointer z-50 relative">
                         <Mountain
                             className={cn("h-8 w-8", (isScrolled || !isHome || isMobileMenuOpen) ? "text-secondary" : "text-white")}/>
-                        <span>Devbhoomi<span
-                            className={cn((isScrolled || !isHome || isMobileMenuOpen) ? "text-secondary" : "text-white")}>Echoes</span></span>
+                        <span>Uttarakhand<span
+                            className={cn((isScrolled || !isHome || isMobileMenuOpen) ? "text-secondary" : "text-white")}>Culture</span></span>
                     </Link>
 
                     {/* Desktop Nav */}
