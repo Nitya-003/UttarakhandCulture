@@ -3,20 +3,30 @@
 import Section from "@/components/Section";
 import {motion} from "framer-motion";
 import {ArrowRight, BookOpen, Camera, Landmark, Mountain, Music, Search, Utensils} from "lucide-react";
+import phoolDei from "@/assets/phoolDei.png" ;
+import aipanTexture from "@/assets/traditional_aipan_art_texture.png";
+
 
 import Image from 'next/image';
 import {useRouter} from "next/navigation";
 
 const categories = [
-    {id: "music", name: "Folk Music", icon: Music, color: "bg-orange-100 text-orange-700", url: "#"},
-    {id: "food", name: "Cuisine", icon: Utensils, color: "bg-green-100 text-green-700", url: "#"},
-    {id: "places", name: "Places", icon: Mountain, color: "bg-blue-100 text-blue-700", url: "#"},
-    {id: "stories", name: "Stories", icon: BookOpen, color: "bg-purple-100 text-purple-700", url: "#"},
-    {id: "arts", name: "Arts & Craft", icon: Camera, color: "bg-pink-100 text-pink-700", url: "#"},
+    {id: "music", name: "Folk Music", icon: Music, color: "bg-orange-100 text-orange-700", url: "/construction"},
+    {id: "food", name: "Cuisine", icon: Utensils, color: "bg-green-100 text-green-700", url: "/construction"},
+    {id: "places", name: "Places", icon: Mountain, color: "bg-blue-100 text-blue-700", url: "/construction"},
+    {id: "stories", name: "Stories", icon: BookOpen, color: "bg-purple-100 text-purple-700", url: "/construction"},
+    {id: "arts", name: "Arts & Craft", icon: Camera, color: "bg-pink-100 text-pink-700", url: "/construction"},
     {id: "temples", name: "Temples", icon: Landmark, color: "bg-amber-100 text-amber-700", url: "/explore/temples"},
 ];
 
 const features = [
+    {
+        title: "Festival",
+        category: "festival",
+        image: phoolDei,
+        desc: "Explore the vibrant festivals, from cultural traditions to colorful celebrations across the Himalayas.",
+        color: "bg-green-100 text-green-700"
+    },
     {
         title: "Traditional Instruments",
         category: "Music",
@@ -26,7 +36,7 @@ const features = [
     {
         title: "The Art of Aipan",
         category: "Arts & Craft",
-        image: "https://images.unsplash.com/photo-1605448366656-8392b97819c0?q=80&w=2070&auto=format&fit=crop", // generic art
+        image: aipanTexture, // generic art
         desc: "Discover the geometric red and white ritual folk art."
     },
     {
@@ -107,11 +117,10 @@ export default function Explore() {
                             whileInView={{opacity: 1, y: 0}}
                             transition={{delay: i * 0.1}}
                             viewport={{once: true}}
-                            className="group cursor-pointer"
-                        >
-                            <div className="relative h-64 rounded-2xl overflow-hidden mb-4">
-                                <div
-                                    className="absolute top-4 left-4 z-10 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+                            className="group cursor-pointer">
+
+                            <div className="relative h-64 rounded-2xl overflow-hidden mb-3">
+                                <div className="absolute top-4 left-4 z-10 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider `${color}`">
                                     {item.category}
                                 </div>
                                 <Image fill
@@ -119,13 +128,12 @@ export default function Explore() {
                                        alt={item.title}
                                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                                 />
-                                <div
-                                    className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"/>
+                                <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"/>
                             </div>
-                            <h3 className="text-2xl font-serif font-bold mb-2 group-hover:text-secondary transition-colors flex items-center gap-2">
+
+                            <h3 className="text-2xl font-serif font-bold mb-1 group-hover:text-secondary transition-colors flex items-center gap-2">
                                 {item.title}
-                                <ArrowRight
-                                    className="w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all"/>
+                                <ArrowRight className="w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all"/>
                             </h3>
                             <p className="text-muted-foreground">{item.desc}</p>
                         </motion.div>
