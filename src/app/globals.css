@@ -277,3 +277,15 @@
 .animate-fade-in {
     animation: fade-in 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
+
+
+/* Hide scrollbar always, even while scrolling */
+.no-scrollbar {
+    -ms-overflow-style: none;      /* IE/Edge */
+    scrollbar-width: none;         /* Firefox */
+    /*overflow: overlay;             !* Prevent scrollbar flash on macOS/iOS *!*/
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;                 /* Chrome/Safari */
+}

@@ -138,16 +138,14 @@ export const FEATURES: IFeature[] = [
 ];
 
 
-/* ---------------------------
-   TOKENIZATION & NORMALIZATION
-   --------------------------- */
+/* =====================
+   Helpers
+   ===================== */
 
 /**
- * - Lowercases and strips punctuation (simple)
- * - You can replace this with a more advanced tokenizer/stemmer if needed
- *
- * Time: O(L) per string
- * Space: O(L)
+ * tokenize(text)
+ * - Lowercases, removes punctuation, splits on whitespace.
+ * - Time: O(len(text)), Space: O(#tokens)
  */
 function tokenize(text: string): string[] {
     return text
@@ -157,132 +155,168 @@ function tokenize(text: string): string[] {
         .filter(Boolean);
 }
 
-
-/* --- Build searchable indexes --- */
+/* =====================
+   Index builder (simple maps)
+   - Good for 50-100 items: readable & efficient enough
+   ===================== */
 
 /**
- * buildIndexes
+ * buildIndexes(features)
  * - Builds:
- *    - invertedIndex: Map<token, Set<featureId>>
- *    - categoryMap: Map<category, Set<featureId>>
- *    - featureMap: Map<featureId, IFeature>
- *
- * Complexity:
- * - Time: O(N * L) where L is avg tokens per feature
- * - Space: O(V + N) where V is total unique tokens, N is number of features
+ *   - categoryToIds: Map<CategoryId, string[]>
+ *   - tokenToIds: Map<string, string[]>
+ * - Time: O(N * L) where N = #features, L = avg tokens per feature
+ * - Space: O(V + N) where V = #unique tokens (small here)
  */
 function buildIndexes(features: IFeature[]) {
     const categoryToIds = new Map<CategoryId, string[]>();
     const tokenToIds = new Map<string, string[]>();
 
-    for (const feature of features) {
-        // category index
-        for (const Category of feature.categories) {
-            const arr = categoryToIds.get(Category) ?? [];
-            arr.push(feature.id);
-            categoryToIds.set(Category, arr);
+    for (const f of features) {
+        // categories
+        for (const c of f.categories) {
+            const arr = categoryToIds.get(c) ?? [];
+            arr.push(f.id);
+            categoryToIds.set(c, arr);
         }
 
-        // token index from title, tags, desc
+        // tokens from title, tags, desc
         const tokens = [
-            ...tokenize(feature.title),
-            ...feature.tags.flatMap(tokenize),
-            ...tokenize(feature.desc),
+            ...tokenize(f.title),
+            ...f.tags.flatMap((t) => tokenize(t)),
+            ...tokenize(f.desc),
+            f.id.toLowerCase(), // include id as searchable token
+            ...f.categories.map((c) => c.toString().toLowerCase()), // include category names as searchable tokens
         ];
 
         const seen = new Set<string>();
-        for (const token of tokens) {
-            if (seen.has(token)) continue;
-            seen.add(token);
-            const arr = tokenToIds.get(token) ?? [];
-            arr.push(feature.id);
-            tokenToIds.set(token, arr);
+        for (const t of tokens) {
+            if (seen.has(t)) continue;
+            seen.add(t);
+            const arr = tokenToIds.get(t) ?? [];
+            arr.push(f.id);
+            tokenToIds.set(t, arr);
         }
     }
 
     return { categoryToIds, tokenToIds };
 }
 
-/* --- RELEVANCE SCORER --- */
+/* =====================
+   Scoring logic
+   - Matches in this priority order:
+     1) Title (highest weight)
+     2) id / category exact or substring
+     3) Tags
+     4) Description (lowest weight)
+   - Substring-based and token-based scoring so partial typing works
+   - Time: O(m) per feature where m = #query tokens (small)
+   ===================== */
 
 /**
- * scoreFeature
- * - Heuristic scoring using title/tag/desc matches and query tokens.
- * - Lowercase comparisons assumed (we pass normalized tokens).
- *
- * Complexity:
- * - Time: O(m) where m = number of query tokens (assuming constant-time string includes checks)
- * - Space: O(1)
+ * computeScore(feature, rawQuery, tokens)
+ * - rawQuery: entire lowercased query string (e.g. "temple")
+ * - tokens: array of token strings from query (["temp", "le"])
+ * Returns numeric score (higher = better)
  */
-function scoreFeature(feature: IFeature, queryTokens: string[], rawQuery: string) :number {
+function computeScore(feature: IFeature, rawQuery: string, tokens: string[]) {
     let score = 0;
     const title = feature.title.toLowerCase();
     const desc = feature.desc.toLowerCase();
-    const tagString = feature.tags.join(" ").toLowerCase();
+    const tagsCombined = feature.tags.join(" ").toLowerCase();
+    const id = feature.id.toLowerCase();
+    const categoriesCombined = feature.categories.join(" ").toLowerCase();
 
-    // exact phrase (raw query) strong boost
-    if (rawQuery.length > 1 && (title.includes(rawQuery) || desc.includes(rawQuery) || tagString.includes(rawQuery))) {
-        score += 100;
+    // 1) Title phrase / substring checks (strongest)
+    if (rawQuery.length > 1 && title.includes(rawQuery)) {
+        score += 200; // exact substring of title
+    } else {
+        // token-level title matches
+        for (const t of tokens) {
+            if (title.includes(t)) score += 40;
+        }
     }
 
-    for (const token of queryTokens) {
-        if (title.includes(token)) score += 20; // title higher weight
-        if (tagString.includes(token)) score += 8; // tags medium
-        if (desc.includes(token)) score += 3; // description lower
+    // 2) id and category matches (next strongest)
+    // exact or substring in id or categories
+    if (id.includes(rawQuery) || categoriesCombined.includes(rawQuery)) {
+        score += 100;
+    } else {
+        for (const t of tokens) {
+            if (id.includes(t)) score += 30;
+            if (categoriesCombined.includes(t)) score += 25;
+        }
+    }
+
+    // 3) tags
+    if (tagsCombined.includes(rawQuery)) score += 60;
+    else {
+        for (const t of tokens) {
+            if (tagsCombined.includes(t)) score += 15;
+        }
+    }
+
+    // 4) description (lowest)
+    if (desc.includes(rawQuery)) score += 10;
+    else {
+        for (const t of tokens) {
+            if (desc.includes(t)) score += 2;
+        }
     }
 
     return score;
 }
 
-
-
-
-
-
-/* --- Hook: useExploreLogic --- */
+/* =====================
+   Hook: useExploreLogic (final)
+   - API preserved:
+     filteredFeatures, searchQuery, selectedCategory, setSearchQuery, setSelectedCategory, isFiltering
+   - Behavior:
+     • When user types (searchQuery non-empty) search across ALL categories
+     • When searchQuery is empty and selectedCategory set, filter by that category
+   ===================== */
 
 export function useExploreLogic() {
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
 
-    // Immediate UI value (visible in input)
-    const [searchQueryInput, setSearchQueryInput] = useState<string>(searchParams.get("q") || "");
-
-    // Debounced value used for heavy work (filtering/search)
-    const [debouncedQuery, setDebouncedQuery] = useState<string>(searchQueryInput);
-
-    // Category state
-    const [selectedCategory, setSelectedCategory] = useState<string | null>(
-        (searchParams.get("cat") as string) || null
+    // Visible input value (immediate)
+    const [searchQueryInput, setSearchQueryInput] = useState<string>(
+        (searchParams.get("q") as string) ?? ""
     );
 
-    // debounce timer ref
+    // Debounced value used for filtering (avoids recalculating on every keystroke)
+    const [debouncedQuery, setDebouncedQuery] = useState<string>(searchQueryInput);
+
+    // Category state (typed as CategoryId | null) — fixes TS2345
+    const [selectedCategory, setSelectedCategory] = useState<CategoryId | null>(
+        (searchParams.get("cat") as CategoryId) ?? null
+    );
+
     const debounceRef = useRef<number | null>(null);
 
-    // Build indexes once (you already have this function)
+    // Build indexes once (easy and fast for 50-100 items)
     const { categoryToIds, tokenToIds } = useMemo(() => buildIndexes(FEATURES), []);
 
-    // ---- FIXED setSearchQuery: update immediate state AND debounce the heavy update ----
+    // setSearchQuery: update immediate input AND debounce the heavy update
     const setSearchQuery = useCallback((value: string) => {
-        // 1) update immediate UI state so input shows typed text
         setSearchQueryInput(value);
 
-        // 2) debounce the value used for actual searching
         if (debounceRef.current) window.clearTimeout(debounceRef.current);
         debounceRef.current = window.setTimeout(() => {
-            setDebouncedQuery(value.trim());
-        }, 1);
+            setDebouncedQuery(value.trim().toLowerCase());
+        }, 150);
     }, []);
 
-    // cleanup timer on unmount
+    // cleanup debounce on unmount
     useEffect(() => {
         return () => {
             if (debounceRef.current) window.clearTimeout(debounceRef.current);
         };
     }, []);
 
-    // Sync URL with immediate input and category (replace to avoid history spam)
+    // Sync visible input + category to URL without creating history entries
     useEffect(() => {
         const params = new URLSearchParams();
         if (searchQueryInput) params.set("q", searchQueryInput);
@@ -291,70 +325,73 @@ export function useExploreLogic() {
         router.replace(`${pathname}${qs ? `?${qs}` : ""}`, { scroll: false });
     }, [searchQueryInput, selectedCategory, pathname, router]);
 
-
-    /* --- Compute results (simple & fast) debouncedQuery + selectedCategory --- */
-
     /**
-     * computeResults
-     * - 1) get candidates via invertedIndex (or all keys if empty query)
-     * - 2) if category filter active, filter candidates by categoryMap (intersection)
-     * - 3) score candidates and sort descending
+     * Filtering logic:
+     * - If there is an active search (debouncedQuery non-empty): search across ALL features ignoring selectedCategory.
+     * - If there is NO search and selectedCategory is set: show features in that category only.
      *
      * Complexity:
-     *  - Time: O(m + k + k * m + k log k) -> dominated by O(k log k) for sorting and O(k * m) for scoring
-     *  - Space: O(k) for candidate arrays
+     * - For each search: we iterate over up to N features and compute score → O(N * m)
+     *   where m = #query tokens (very small).
+     * - N = 50..100 in your case — trivial.
      */
     const results = useMemo(() => {
-        const rawQuery = (debouncedQuery || "").toLowerCase();
-        const tokens = rawQuery ? tokenize(rawQuery) : [];
+        const raw = debouncedQuery || "";
+        const tokens = raw ? raw.split(/\s+/).filter(Boolean) : [];
 
-        // 1) start with all features
-        let candidates = new Set(FEATURES.map((f) => f.id));
-
-        // 2) category filter (intersection)
-        if (selectedCategory && selectedCategory !== "all") {
-            const ids = new Set(categoryToIds.get(selectedCategory) ?? []);
-            candidates = new Set([...candidates].filter((id) => ids.has(id)));
+        // Candidate set:
+        // - If searching (raw non-empty): all features
+        // - Else if category selected: only features in that category
+        // - Else: all features
+        let candidateIds: string[];
+        if (!raw && selectedCategory && selectedCategory !== "all") {
+            candidateIds = categoryToIds.get(selectedCategory) ?? [];
+        } else {
+            candidateIds = FEATURES.map((f) => f.id);
         }
 
-        // 3) search filter (OR semantics across tokens)
-        if (tokens.length > 0) {
-            const matched = new Set<string>();
-            for (const tok of tokens) {
-                const list = tokenToIds.get(tok);
-                if (list) list.forEach((id) => matched.add(id));
+        // Score each candidate (Title > id/category > tags > desc)
+        const scored: { feature: IFeature; score: number }[] = [];
+        for (const id of candidateIds) {
+            // quick find feature (N small — O(N) find is fine). If you prefer, build featureMap for O(1).
+            const feat = FEATURES.find((f) => f.id === id);
+            if (!feat) continue;
+
+            // If there's a search term, compute score; if no search term and category filter active, keep (score 0)
+            let score = 0;
+            if (raw) {
+                score = computeScore(feat, raw, tokens);
+            } else {
+                // when no search term, we still want to show all category items — score 0
+                score = 0;
             }
-            candidates = new Set([...candidates].filter((id) => matched.has(id)));
+
+            // If raw exists and score is 0, skip non-matching items to avoid clutter (OR semantics)
+            if (raw && score === 0) continue;
+
+            scored.push({ feature: feat, score });
         }
 
-        // 4) score candidates
-        const scored = [...candidates].map((id) => {
-            const feature = FEATURES.find((x) => x.id === id)!;
-            return { feature, score: scoreFeature(feature, tokens, rawQuery) };
-        });
+        // Sort by score DESC. If tie, sort by title ASC as tiebreaker
+        scored.sort((a, b) => b.score - a.score );
 
-        // 5) sort by score desc, then title
-        // scored.sort((a, b) => b.score - a.score || a.feature.title.localeCompare(b.feature.title));
-        // scored.sort((a, b) => b.score - a.score);
-
-
+        // Return features only
         return scored.map((s) => s.feature);
-    }, [debouncedQuery, selectedCategory, categoryToIds, tokenToIds]);
+    }, [debouncedQuery, selectedCategory, categoryToIds]);
 
     const isFiltering = Boolean((debouncedQuery && debouncedQuery.length > 0) || (selectedCategory && selectedCategory !== "all"));
 
-    // toggle category helper (click same -> clear)
-    const handleCategoryChange = useCallback((cat: string | null) => {
+    // handleCategoryChange: toggle if same clicked, else set.
+    const handleCategoryChange = useCallback((cat: CategoryId | null) => {
         setSelectedCategory((prev) => (prev === cat ? null : cat));
     }, []);
 
     return {
         filteredFeatures: results,
-        searchQuery: searchQueryInput,      // immediate value shown in input
+        searchQuery: searchQueryInput,
         selectedCategory,
-        setSearchQuery,                     // function bound to input onChange
+        setSearchQuery,
         setSelectedCategory: handleCategoryChange,
         isFiltering,
     } as const;
 }
-
