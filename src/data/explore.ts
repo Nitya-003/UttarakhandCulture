@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useMemo, useState, useCallback, useRef } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { Landmark, Mountain, Utensils, Languages, History, PartyPopper, Binoculars } from "lucide-react";

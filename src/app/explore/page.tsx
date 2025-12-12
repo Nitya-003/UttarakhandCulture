@@ -1,7 +1,7 @@
 "use client";
 
 import Section from "@/components/Section";
-import {motion} from "framer-motion";
+import { motion } from "motion/react"
 import {ArrowRight, Search, X as XIcon} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,8 +11,7 @@ import React from "react";
 
 export default function Explore() {
 
-    const {filteredFeatures, searchQuery, selectedCategory, setSearchQuery, setSelectedCategory, isFiltering} =
-        useExploreLogic();
+    const {filteredFeatures, searchQuery, selectedCategory, setSearchQuery, setSelectedCategory, isFiltering} = useExploreLogic();
 
     return (
         <div className="min-h-screen bg-background mb-32 sm:mb-42">
