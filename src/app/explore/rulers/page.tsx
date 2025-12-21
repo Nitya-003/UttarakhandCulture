@@ -8,18 +8,18 @@ import {eraGrouped, rulers} from "@/data/rulers";
 import {ArrowRight, Crown, Mountain, Sparkles} from "lucide-react";
 
 // Import all ruler images
-import kunindaImg from "@/assets/kuninda_kingdom_ancient_coins.png";
-import nagaImg from "@/assets/naga_sacred_serpent_worship.png";
-import mauryaImg from "@/assets/maurya_ashoka_dharma.png";
-import kushanImg from "@/assets/kushan_silk_road_trade.png";
-import guptaImg from "@/assets/gupta_golden_age.png";
+import kunindaImg from "@/assets/kuninda_ruler_uttarakhand_culture.webp";
+import nagaImg from "@/assets/naga_rulers_uttarakhand_culture.webp";
+import mauryaImg from "@/assets/maurya_ruler_uttarakhand_culture.webp";
+import kushanImg from "@/assets/kushan_ruler_uttarakhand_culture.webp";
+import guptaImg from "@/assets/gupta_ruler_uttarakhand_culture.webp";
 import katyuriImg from "@/assets/katyuri_medieval_temples.png";
-import chandImg from "@/assets/chand_kumaon_dynasty.png";
-import panwarImg from "@/assets/panwar_garhwal_temples.png";
-import gorkhagImg from "@/assets/gorkha_conquest_era.png";
-import britishImg from "@/assets/british_colonial_era.png";
-import tehriImg from "@/assets/tehri_princely_state.png";
-import indiaImg from "@/assets/modern_india_uttarakhand.png";
+import chandImg from "@/assets/chand_rulers_uttarakhand_culture.webp";
+import panwarImg from "@/assets/panwar_garhwal_uttarakhand_culture.webp";
+import gorkhagImg from "@/assets/gorkha_ruler_uttarakhand_culture.webp";
+import britishImg from "@/assets/british_colonial_ruler_uttarakhand_culture.webp";
+import tehriImg from "@/assets/tehri_ruler_uttarakhand_culture.webp";
+import indiaImg from "@/assets/modern_ruler_uttarakhand_culture.webp";
 
 
 import Image from 'next/image';
