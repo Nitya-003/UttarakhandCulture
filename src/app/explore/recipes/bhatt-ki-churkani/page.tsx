@@ -1,4 +1,5 @@
 "use client"
+
 import Section from "@/components/Section";
 import {Button} from "@/components/ui/button";
 import {ArrowLeft, ChefHat, Clock, Users} from "lucide-react";
@@ -18,7 +19,8 @@ export default function Page() {
                     <motion.div initial={{opacity: 0, y: 20}} animate={{opacity: 1, y: 0}}>
                         <span
                             className="bg-secondary px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-4 inline-block">Main Course</span>
-                        <h1 className="text-4xl md:text-6xl font-serif font-bold mb-4">Bhatt Ki Churkani</h1>
+                        <h1 className="text-4xl sm:text-6xl md:text-8xl font-hand font-bold mb-4 bg-clip-text text-transparent bg-linear-to-r from-white to-white/50 ">Bhatt Ki Churkani</h1>
+
                         <div className="flex items-center gap-6 text-lg">
                             <div className="flex items-center gap-2"><Clock className="w-5 h-5"/> 45 Mins</div>
                             <div className="flex items-center gap-2"><Users className="w-5 h-5"/> Serves 4</div>
@@ -92,8 +94,8 @@ export default function Page() {
                                 &#34;Always use hot water to make the gravy. Cold water can harden the beans. Cooking in an
                                 iron vessel is non-negotiable for the authentic taste!&#34;
                             </p>
-                            <Link href="/recipes">
-                                <Button variant="outline" className="w-full">
+                            <Link href="/explore/recipes">
+                                <Button variant="default" className="w-full text-black/80 border border-input bg-background hover:bg-secondary hover:text-white hover:border-secondary hover:cursor-pointer ">
                                     <ArrowLeft className="w-4 h-4 mr-2"/> Back to Recipes
                                 </Button>
                             </Link>
