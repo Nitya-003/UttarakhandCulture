@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import {ClerkProvider,} from '@clerk/nextjs';
 import {Suspense} from 'react';
 import Image from "next/image";
+import { Analytics } from "@vercel/analytics/next"
 
 const dmSans = DM_Sans({
     subsets: ["latin"],
@@ -51,6 +52,7 @@ export default function RootLayout({
                     />
                 </div>}>
                 {children}
+                <Analytics />
             </Suspense>
             <Footer/>
             </body>
