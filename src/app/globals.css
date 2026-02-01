@@ -305,3 +305,12 @@
 .no-scrollbar::-webkit-scrollbar {
     display: none; /* Chrome/Safari */
 }
+
+
+/*!* globals.css *!*/
+/*.hero-noise::before {*/
+/*    mask-image: url("/noise_uttarakhand_culture.webp");*/
+/*    background-repeat: repeat;*/
+/*    opacity: 0.08;*/
+/*}*/
+

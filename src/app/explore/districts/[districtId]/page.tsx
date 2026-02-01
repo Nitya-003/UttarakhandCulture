@@ -57,15 +57,13 @@ export default function DistrictDetail() {
                     <motion.div initial={{opacity: 0, y: 20}} animate={{opacity: 1, y: 0}}>
                         <div className="flex items-center gap-2 mb-4">
                             <Link href="/explore/districts">
-                                <Button variant="outline" size="sm"
-                                        className="rounded-full bg-white/20 border-white/40 hover:bg-white/30 text-white">
+                                <Button variant="outline" size="sm" className="rounded-full bg-white/20 border-white/40 hover:bg-white/90 text-white cursor-pointer">
                                     <ArrowLeft className="w-4 h-4 mr-2"/> Back to Map
                                 </Button>
                             </Link>
-                            <span
-                                className="bg-secondary px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">
-                {district.region} Region
-              </span>
+                            <span className="bg-secondary px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">
+                                {district.region} Region
+                            </span>
                         </div>
                         <h1 className="text-5xl sm:text-7xl md:text-9xl font-hand font-bold mb-4 bg-clip-text text-transparent bg-linear-to-r from-white to-white/50 ">{district.name}</h1>
                         <p className="text-xl md:text-2xl max-w-2xl font-light text-white/90">
