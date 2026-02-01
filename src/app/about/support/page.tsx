@@ -5,6 +5,8 @@ import {Button} from "@/components/ui/button";
 import {Code, Coffee, Heart, Server, Shield} from "lucide-react";
 import {motion} from "framer-motion";
 import Link from "next/link";
+import UPIQRCODE from "@/assets/upi_support_uttarakhand_culture.webp";
+import Image from "next/image";
 
 export default function Support() {
     return (
@@ -24,6 +26,45 @@ export default function Support() {
                     </p>
                 </div>
             </section>
+
+
+            <Section centered className="bg-muted/30">
+                <div className="p-5 sm:p-10 max-w-2xl mx-auto bg-white  rounded-3xl shadow-xl border border-secondary/20">
+                    <h2 className="text-3xl font-serif font-bold mb-6">Make a Contribution</h2>
+                    <p className="text-muted-foreground mb-8">
+                        Every rupee goes directly into maintaining and improving Uttarakhand Culture.
+                        We are transparent about our costs and usage.
+                    </p>
+
+                    {/*<div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">*/}
+                    {/*    {[100, 500, 1000, 2000].map((amt) => (*/}
+                    {/*        <button key={amt}*/}
+                    {/*                className="py-3 px-4 rounded-xl border border-border hover:border-secondary hover:bg-secondary/5 font-medium transition-colors">*/}
+                    {/*            ₹{amt}*/}
+                    {/*        </button>*/}
+                    {/*    ))}*/}
+                    {/*</div>*/}
+
+                    <div className={"flex justify-center items-center mb-4"} ><Image src={UPIQRCODE} alt={""} width={"200"} height={"200"}/></div>
+
+
+                    <p className="mt-2 mb-4 text-sm text-muted-foreground text-center">
+                        By supporting us, you acknowledge that all contributions are non-refundable.
+                    </p>
+
+                    <Button size="lg" className="w-full rounded-full text-lg bg-secondary hover:bg-secondary/90">
+                        {/*<Coffee className="w-5 h-5 mr-2"/> Donate Now*/}
+                        UPI QR Code
+                    </Button>
+
+
+                    <p className="mt-2 text-sm text-muted-foreground text-center">
+                        {/*Secure payment powered by Razorpay/Stripe. <br/>*/}
+                        <Link href="/about/contact" className="underline text-secondary hover:text-secondary/80">Contact us</Link> for
+                        partnership opportunities.
+                    </p>
+                </div>
+            </Section>
 
             <Section>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
@@ -62,39 +103,9 @@ export default function Support() {
                 </div>
             </Section>
 
-            <Section centered className="bg-muted/30">
-                <div className="max-w-2xl mx-auto bg-white p-10 rounded-3xl shadow-xl border border-secondary/20">
-                    <h2 className="text-3xl font-serif font-bold mb-6">Make a Contribution</h2>
-                    <p className="text-muted-foreground mb-8">
-                        Every rupee goes directly into maintaining and improving Uttarakhand Culture.
-                        We are transparent about our costs and usage.
-                    </p>
-
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                        {[100, 500, 1000, 2000].map((amt) => (
-                            <button key={amt}
-                                    className="py-3 px-4 rounded-xl border border-border hover:border-secondary hover:bg-secondary/5 font-medium transition-colors">
-                                ₹{amt}
-                            </button>
-                        ))}
-                    </div>
-
-                    <Button size="lg" className="w-full rounded-full text-lg bg-secondary hover:bg-secondary/90">
-                        <Coffee className="w-5 h-5 mr-2"/> Donate Now
-                    </Button>
-
-                    <p className="mt-6 text-sm text-muted-foreground">
-                        Secure payment powered by Razorpay/Stripe. <br/>
-                        <Link href="/about/contact" className="underline hover:text-secondary">Contact us</Link> for
-                        partnership opportunities.
-                    </p>
-                </div>
-            </Section>
-
-            <Section centered>
-                <p className="text-lg font-medium">
-                    Can&#39;t donate? You can still help! <Link href="/about/contribute"
-                                                                className="text-secondary underline">Contribute
+            <Section centered className={"-mt-40"}>
+                <p className="text-lg font-medium text-center">
+                    Can&#39;t donate? You can still help! <Link href="/about/contribute" className="text-secondary underline">Contribute
                     content</Link> or share our website.
                 </p>
             </Section>

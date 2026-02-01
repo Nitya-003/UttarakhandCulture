@@ -7,12 +7,14 @@ import foodImg from "@/assets/food_uttarakhand_culture.webp";
 import aipanTexture from "@/assets/aipan_art_uttarakhand_culture.webp";
 import templeImg from "@/assets/kedarnath_temple_uttarakhand_culture.webp";
 // import backgroundImg from "@/assets/almora_district_uttarakhand_culture.webp";
-import backgroundImg from "@/assets/background-1_uttarakhand_culture.webp";
+// import backgroundImg from "@/assets/background-1_uttarakhand_culture.webp";
 // import backgroundImg from "@/assets/background-2_uttarakhand_culture.jpg";
 // import backgroundImg from "@/assets/background-3_uttarakhand_culture.jpg";
 // import backgroundImg from "@/assets/background-4_uttarakhand_culture.jpg";
 // import backgroundImg from "@/assets/background-5_uttarakhand_culture.jpg";
 // import backgroundImg from "@/assets/background-6_uttarakhand_culture.jpg";
+
+import backgroundImg from "@/assets/UkBackNoise.png";
 
 import Section from "@/components/Section";
 import {Button} from "@/components/ui/button";
@@ -38,8 +40,8 @@ export default function Home() {
             <div className="relative h-screen w-full overflow-hidden select-none">
                  {/* --- Background Image with Parallax feel --- */}
                 <motion.div
-                    className="absolute inset-0 z-0"
-                    initial={{scale: 1.5}}
+                    className="absolute inset-0 z-0 hero-noise"
+                    initial={{scale: 1.2}}
                     animate={{scale: 1}}
                     transition={{duration: 10, ease: "easeOut"}}
                 >
@@ -54,20 +56,23 @@ export default function Home() {
                             placeholder={"blur"}
                     />
                     </div>
+
+                    {/* Noise */}
+                    {/*<div className="absolute inset-0 noise-overlay" />*/}
+
                     {/* Overlay Gradient */}
                     <div className="absolute inset-0 bg-linear-to-b from-black/30 via-transparent to-black/80"/>
                 </motion.div>
 
 
-                {/* Content */}
-                <div
-                    className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4 text-white home-hero-content">
-                    <motion.div
+                {/*--- Home Hero Section Content ---*/}
+                <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4 text-white home-hero-content">
+                    <motion.div className={"flex flex-col items-center justify-center"}
                         initial={{opacity: 0, y: 20}}
                         animate={{opacity: 1, y: 0}}
-                        transition={{duration: 0.8, delay: 0.2}}>
+                        transition={{duration: 0.8, delay: 0.2}} >
 
-                        <span className="font-hand text-3xl md:text-4xl text-green-900  mb-4 block transform -rotate-2 "
+                        <span className="font-hand text-center text-3xl md:text-4xl text-green-800 mb-4 block transform -rotate-2  bg-amber-100 w-fit  pl-2 pr-3 "
                               style={{textShadow: '2px 3px 6px rgba(0,0,0,0.25)'}}>
                             Welcome to the Land of Gods
                         </span>
@@ -75,7 +80,8 @@ export default function Home() {
                             Discover <span
                             className="text-transparent bg-clip-text bg-linear-to-r from-white to-white/80">Uttarakhand</span>
                         </h1>
-                        <p className="text-lg md:text-xl max-w-2xl mx-auto text-white/90 font-light leading-relaxed mb-8">
+                        <p className="text-lg md:text-xl max-w-2xl mx-auto text-white/90 font-light leading-relaxed mb-8"
+                           style={{textShadow: '2px 3px 6px rgba(0,0,0,0.25)'}}>
                             Where the mountains whisper ancient tales, and every path leads to a spiritual journey.
                             Explore the heritage, culture, and untamed beauty of the Himalayas.
                         </p>
@@ -338,7 +344,7 @@ export default function Home() {
                         whileInView={{opacity: 1, y: 0}}
                         transition={{delay: 0.3}}
                         viewport={{once: true}}
-                        className="md:col-span-12 row-span-1 relative group overflow-hidden rounded-2xl shadow-md cursor-pointer md:h-100"
+                        className="md:col-span-12 row-span-1 sticky group overflow-hidden rounded-2xl shadow-md cursor-pointer md:h-100"
                     >
                         <Link href="/explore" className="block w-full h-full">
                             <Image src={danceImg} alt="Folk Dance"
