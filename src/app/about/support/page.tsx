@@ -5,7 +5,7 @@ import {Button} from "@/components/ui/button";
 import {Code, Coffee, Heart, Server, Shield} from "lucide-react";
 import { motion } from "motion/react"
 import Link from "next/link";
-import UPIQRCODE from "@/assets/upi_support_uttarakhand_culture.webp";
+import UPIQRCODE from "@/assets/GooglePay_QR.webp";
 import Image from "next/image";
 
 export default function Support() {
