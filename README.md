@@ -1,12 +1,12 @@
-# Himalayan Echoes: Uttarakhand Culture
+# UttarakhandCulture
 
-Welcome to **Himalayan Echoes**, a digital gateway to the soul of Uttarakhand. This project is dedicated to showcasing the rich heritage, vibrant culture, and breathtaking natural beauty of "Devbhoomi" (Land of Gods).
+Welcome to **UttarakhandCulture**, a digital gateway to the soul of Uttarakhand. This project is dedicated to showcasing the rich heritage, vibrant culture, and breathtaking natural beauty of "Devbhoomi" (Land of Gods).
 
 We aren't just building a website; we're crafting an immersive experience. From the intricate history of local rulers to the rhythm of folk festivals, every pixel here tells a story.
 
 ## What's Inside?
 
-This application is built to help you explore Uttarakhand in depth:
+This webapp is built to help you explore Uttarakhand in depth:
 
 *   **Interactive Exploration**: Navigate through districts and tehsils with our interactive SVG maps.
 *   **Cultural Deep Dive**: Learn about the festivals, fairs, and temples that define the region's spiritual life.
@@ -19,7 +19,7 @@ We use modern, robust tools to ensure a smooth and performant experience:
 
 *   **Framework**: [Next.js 15](https://nextjs.org/) (App Router)
 *   **Styling**: [Tailwind CSS](https://tailwindcss.com/) with `tailwindcss-animate`
-*   **Animation**: [Framer Motion](https://www.framer.com/motion/) & `motion` for fluid interactions
+*   **Animation**: [React Motion](https://motion.dev/) for fluid interactions
 *   **UI Components**: Built with [Radix UI](https://www.radix-ui.com/) primitives
 *   **Icons**: [Lucide React](https://lucide.dev/)
 
